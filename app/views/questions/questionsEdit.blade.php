@@ -4,7 +4,6 @@
     <h1>edit a Question...</h1>
     {{Form::open(['method' => 'PUT', 'route' => ['questions.update', $q->id]])}}
 
-
     <div class="form-group">
         {{Form::text('category', $q->category)}}
         {{$errors->first('category')}}

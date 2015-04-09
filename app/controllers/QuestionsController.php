@@ -19,6 +19,12 @@ class questionsController extends \BaseController {
         return View::make("questions/questionsIndex", ['questions'=>$this->question->all()]);
     }
 
+    public function testMain()
+    {
+
+        return View::make("questions/home");
+    }
+
 
     /**
      * Show the form for creating a new resource.
