@@ -19,13 +19,14 @@ Route::get('/', function()
 
 Route::resource('questions', 'QuestionsController');
 
+Route::get('random', "QuestionsController@randomQuestion");
+
+Route::get('reset', "QuestionsController@resetViewed");
+
 Route::get('/home', function()
 {
 	return View::make('questions/home');
 	//Route::resource('users', 'UsersController');
 });
 
-Route::get('/bs', function() {
-	return View::make('bootstrapTemplate/index');
-});
 

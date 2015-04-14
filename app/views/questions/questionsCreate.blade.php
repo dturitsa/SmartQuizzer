@@ -1,24 +1,54 @@
 
-@extends('layouts.basic')
+@extends('layouts.main')
+
+@section('pagetitle')
+    Create a Question
+@stop
+
 @section('maincontent')
-    <h1>create a Question</h1>
 
-        {{ Form::open( array('action' => 'QuestionsController@store')) }}
-    <div class="form-group">
-        {{Form::text('category', 'category')}}
-        {{$errors->first('category')}}
-    </div>
+    <Fieldset>
+        <legend></legend>
 
-    <br>{{Form::text('question', 'question')}}
+        {{ Form::open( ['action' => 'QuestionsController@store', 'class' => 'form-horizontal']) }}
+        <div class="form-group">
+            <label for="categorySelect" class="col-sm-2 control-label">Category</label>
+            <div class="col-sm-10">
+                <select name="category" class="form-control" id="categorySelect">
 
-    <br>{{Form::text('answer', 'answer')}}
-    {{$errors->first('answer')}}
+                    @foreach($categories as $qc)
+                        <option>{{$qc-> category}}</option>
+                    @endforeach
 
-    <br> {{Form::submit('submit', ['class' => 'btn btn-danger'])}}
+                </select>
 
-    <!--<br><input class="btn btn-danger" type="submit" value="Submit">-->
+            </div>
+        </div>
+            <div class="form-group">
+                <label for="questionTextArea" class="col-sm-2 control-label">Question</label>
+                <div class="col-sm-10">
+                    {{Form::textarea('question', null,
+                        ['class' => "form-control", 'placeholder' => 'Enter your Question', 'id' => 'questionTextArea'])}}
+                    {{$errors->first('question')}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="answerTextArea" class="col-sm-2 control-label">Answer</label>
+                <div class="col-sm-10">
+                    {{Form::textarea('answer', null,
+                        ['class' => "form-control", 'placeholder' => 'Enter the Answer', 'id' => 'answerTextArea'])}}
+                    {{$errors->first('answer')}}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    {{Form::submit('submit', ['class' => 'btn btn-danger'])}}
+                </div>
+            </div>
 
-    {{ Form::token() . Form::close() }}
+        {{Form::token()}}
+        {{Form::close() }}
+    </Fieldset>
 
 @stop
 

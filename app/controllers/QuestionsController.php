@@ -16,13 +16,7 @@ class questionsController extends \BaseController {
     public function index()
     {
 
-        return View::make("questions/questionsIndex", ['questions'=>$this->question->all()]);
-    }
-
-    public function testMain()
-    {
-
-        return View::make("questions/home");
+        return View::make("questions/questionsIndex", ['categories'=>$this->question->select('category')->distinct()->get(), 'questions'=>$this->question->all()]);
     }
 
 
@@ -33,7 +27,7 @@ class questionsController extends \BaseController {
      */
     public function create()
     {
-        return View::make("questions/questionsCreate");
+        return View::make("questions/questionsCreate", ['categories'=>$this->question->select('category')->distinct()->get()]);
     }
 
 
@@ -79,7 +73,7 @@ class questionsController extends \BaseController {
     {
         $q = question::whereId($id)->first();
 
-        return View::make('questions/questionsEdit', ['q'=>$q]);
+        return View::make('questions/questionsEdit', ['categories'=>$this->question->select('category')->distinct()->get(), 'q'=>$q]);
     }
 
     /**
@@ -109,6 +103,61 @@ class questionsController extends \BaseController {
         $q = question::whereId($id)->first();
         $q ->delete();
         return View::make("questions/questionsIndex",['questions'=>question::all()]);
+
+    }
+
+
+    public function resetViewed()
+    {
+        Session::forget('viewedQ');
+
+        return $this::randomQuestion();
+    }
+
+    public function randomQuestion()
+    {
+        if (Input::has('category'))
+        {
+            $category = Input::get('category');
+            Cookie::queue('categoryCookie', $category, 10080);
+        } else if(Cookie::get('categoryCookie') != false) {
+            $category = Cookie::get('categoryCookie');
+        } else{
+            $category = 'php';
+        }
+
+
+
+
+        $viewedQuestions = Session::get('viewedQ');
+        if($viewedQuestions == null)
+            $viewedQuestions = [];
+
+
+        $randomizedQuestions = DB::table('questions')
+            ->where('category', $category)
+            ->whereNotIn('id', $viewedQuestions)
+            ->orderByRaw("RAND()")->get();
+
+        if($randomizedQuestions == null)
+        {
+            Session::forget('viewedQ');
+
+            $randomizedQuestions = DB::table('questions')
+                ->where('category', $category)
+                ->orderByRaw("RAND()")->get();
+        }
+        $randomQuestion = $randomizedQuestions[0];
+
+       $distinctCategories = $this->question->select('category')->distinct()->get();
+
+        if(!in_array($randomQuestion->id, $viewedQuestions))
+        {
+            Session::push('viewedQ', $randomQuestion->id);
+        }
+
+        return View::make("questions/questionsCard", ['categories'=> $distinctCategories,
+                'randomQuestion'=>$randomQuestion, 'viewedQuestions'=>$viewedQuestions]);
 
     }
 
