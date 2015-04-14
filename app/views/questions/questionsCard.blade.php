@@ -25,12 +25,13 @@
     .currentCategoryOption {
         background-color: #00D5F2;
     }
+
 </style>
 @stop
 
 @section('maincontent')
 
-
+<div>
     {{ Form::open( ['method' =>'GET', 'action' => 'QuestionsController@randomQuestion', 'class' => 'form-inline']) }}
 
     <div class="form-group">
@@ -50,20 +51,25 @@
 
     </div>
     <div class="form-group">
-            {{Form::submit('Next Question!', ['class' => 'btn btn-success'])}}
+            {{Form::submit('Next!', ['class' => 'btn btn-success'])}}
+             <a href="/reset" class="btn btn-danger">Reset</a>
 
     </div>
+</div>
 
-    <a href="/reset" class="btn btn-danger">Reset</a>
-
+<div>
     <div id="card">
         <div class="front">
             {{$randomQuestion->question}}
         </div>
         <div class="back">
-           {{$randomQuestion->answer}}
+            {{$randomQuestion->answer}}
         </div>
     </div>
+</div>
+
+
+
 
 
 
