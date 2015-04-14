@@ -22,6 +22,9 @@
         min-height: 200px;
         max-height: 500px;
     }
+    .currentCategoryOption {
+        background-color: #00D5F2;
+    }
 </style>
 @stop
 
@@ -36,7 +39,7 @@
 
         <select name="category" class="form-control" id="categorySelect">
 
-            <option> {{$randomQuestion->category}}</option>
+            <option class="currentCategoryOption"> {{$randomQuestion->category}}</option>
 
             @foreach($categories as $q)
                 <option>{{$q-> category}}</option>

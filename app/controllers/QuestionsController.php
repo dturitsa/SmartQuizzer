@@ -129,7 +129,7 @@ class questionsController extends \BaseController {
         } else if(Cookie::get('categoryCookie') != false) {
             $category = Cookie::get('categoryCookie');
         } else{
-            $category = 'php';
+            $category = 'COMP3975 PHP';
         }
 
 
