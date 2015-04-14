@@ -1,7 +1,5 @@
 @extends('layouts.main')
-@section('pagetitle')
-    Your Quiz
-@stop
+
 @section('headers')
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -13,15 +11,22 @@
         $("#card").flip();
     });
 </script>
-
+<style>
+    .front, .back {
+        font-family: 'Just Another Hand', cursive;
+        font-size: 300%;
+        -moz-box-shadow:    3px 3px 5px 6px #ccc;
+        -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+        box-shadow:         3px 3px 5px 6px #ccc;
+        max-width: 365px;
+        min-height: 200px;
+        max-height: 500px;
+    }
+</style>
 @stop
 
 @section('maincontent')
 
-    @foreach($viewedQuestions as $v)
-        {{$v}}
-
-    @endforeach
 
     {{ Form::open( ['method' =>'GET', 'action' => 'QuestionsController@randomQuestion', 'class' => 'form-inline']) }}
 
@@ -46,7 +51,7 @@
 
     </div>
 
-    <a href="/reset">Reset</a>
+    <a href="/reset" class="btn btn-danger">Reset</a>
 
     <div id="card">
         <div class="front">

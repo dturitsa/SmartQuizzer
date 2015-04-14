@@ -11,11 +11,7 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-	//Route::resource('users', 'UsersController');
-});
+Route::get('/', "QuestionsController@randomQuestion");
 
 Route::resource('questions', 'QuestionsController');
 
@@ -23,10 +19,5 @@ Route::get('random', "QuestionsController@randomQuestion");
 
 Route::get('reset', "QuestionsController@resetViewed");
 
-Route::get('/home', function()
-{
-	return View::make('questions/home');
-	//Route::resource('users', 'UsersController');
-});
 
 
