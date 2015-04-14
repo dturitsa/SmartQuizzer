@@ -38,8 +38,14 @@ class questionsController extends \BaseController {
      */
     public function store()
     {
-        $input = Input::all();
-        $this->question->fill($input);
+        if(Input::get('categoryText') != ''){
+            $this->question->category = Input::get('categoryText');
+        } else
+            $this->question->category = Input::get('category');
+
+        $this->question->question = Input::get('question');
+        $this->question->answer = Input::get('answer');
+
         if(!($this->question->isValid()))
         {
             return Redirect::back()->withInput()->withErrors($this->question->messages);

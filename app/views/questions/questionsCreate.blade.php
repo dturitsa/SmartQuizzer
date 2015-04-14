@@ -12,7 +12,7 @@
 
         {{ Form::open( ['action' => 'QuestionsController@store', 'class' => 'form-horizontal']) }}
         <div class="form-group">
-            <label for="categorySelect" class="col-sm-2 control-label">Category</label>
+            <label for="categorySelect" class="col-sm-2 control-label">Use existing category</label>
             <div class="col-sm-10">
                 <select name="category" class="form-control" id="categorySelect">
 
@@ -24,6 +24,15 @@
 
             </div>
         </div>
+        <div class="form-group">
+            <label for="categoryText" class="col-sm-2 control-label">Or make a new Category</label>
+            <div class="col-sm-10">
+                {{Form::text('categoryText', null,
+                    ['class' => "form-control", 'id' => 'categoryText'])}}
+                {{$errors->first('category')}}
+            </div>
+        </div>
+
             <div class="form-group">
                 <label for="questionTextArea" class="col-sm-2 control-label">Question</label>
                 <div class="col-sm-10">
