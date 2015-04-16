@@ -19,5 +19,12 @@ Route::get('random', "QuestionsController@randomQuestion");
 
 Route::get('reset', "QuestionsController@resetViewed");
 
+Route::get('about', "about");
+
+Route::get('about', function(){
+
+    return View::make('about');
+});
+
 
 

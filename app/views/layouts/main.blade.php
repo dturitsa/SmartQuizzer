@@ -60,9 +60,6 @@
                     <li>
                         <a href="/questions/create">Add a Question</a>
                     </li>
-                    <li>
-                        <a href="#">about</a>
-                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
